@@ -10,7 +10,6 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            transition: background-color 1s ease; /* Transição suave para as mudanças de cor */
         }
         #quote {
             margin-top: 10px;
@@ -29,7 +28,22 @@
             align-items: center;
         }
         .icon {
-            margin-right: 5px; /* Espaço entre o ícone e o nome da música */
+            margin-right: 5px; 
+        }
+
+        #add-quote-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #253982; 
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        }
+
+        #add-quote-button:hover {
+        background-color: #1d2d6c; 
         }
     </style>
 </head>
@@ -37,9 +51,10 @@
     <div id="quote"></div>
     <div id="author"></div>
     <div id="song">
-        <span class="icon">🎧</span> <!-- Ícone de headphone -->
+        <span class="icon">🎧</span> 
         <span id="song-name"></span>
     </div>
+    <button id="add-quote-button">Add</button> 
 
     <script>
     const quotes = [
@@ -48,33 +63,33 @@
         { text: "O grafite na parede já defende algum direito, daquele jeito / Assim que é tem que por fé, não de ré / Bota fé no que é, não nos mané", author: "Sabotage", song: "Rap é Compromisso" },
         { text: "Você não percebeu que você é o único representante do seu sonho na face da Terra?", author: "Emicida", song: "Levanta e Anda" },
         { text: "Querem competir com o melhor e não querem ser freguês", author: "Djonga", song: "Corre das Notas" },
-        { text: "Eu tô precisando de mim, perdi o contato / Se cê me encontrar, tô me esperando ali na frente.", author: "Yago O Próprio", song: "La Noche" },
-        { text: "Me descobrindo no correr desses segundos / Tão requintado porque eu sou tão vagabundo.", author: "Yago O Próprio", song: "La Noche" },
-        { text: "Honro as minha fita, ninguém tem nada com isso / E se o caminho foi do vício, eu precisava porque eu tava muito louco.", author: "Yago O Próprio", song: "La Noche" },
-        { text: "Penso na desculpa / Antes pra me ausentar da culpa / Sem entender a solução.", author: "Yago O Próprio", song: "Inofensiva" },
-        { text: "Porque eu consigo disfarçar / E até justificar para mim mesmo a semblante do olho meu.", author: "Yago O Próprio", song: "Inofensiva" },
-        { text: "E eu já tô melhor já faz um tempo nunca foi coisa de momento.", author: "Yago O Próprio", song: "Inofensiva" },
-        { text: "Falou que até parou, mas não se libertou / Achou que já tava tudo bem / Inofensiva, mas te dominou.", author: "Yago O Próprio", song: "Inofensiva" },
-        { text: "Parece que todos domingos são banais / Se não olhamos as coisas se tornam fatais.", author: "Yago O Próprio", song: "Catedrais" },
-        { text: "Se segredo eu for te contar / Eu posso me contradizer / Se o medo me paralisar / Não posso me submeter.", author: "Yago O Próprio", song: "Catedrais" },
-        { text: "Vou juntando meus pedaços pra saber quem sou / Distribuindo meus retalhos por aí.", author: "Yago O Próprio", song: "Fora do Tom" },
-        { text: "Errei caminhos, você sabe como é / Cheguei tão perto pra me ver partir.", author: "Yago O Próprio", song: "Fora do Tom" },
-        { text: "Nada do que foi vai voltar / E o ponteiro do relógio serve pra não esquecer / Que na vida tudo passa, a dor, a paz, a graça", author: "Yago O Próprio", song: "Melhor que Ontem" },
-        { text: "Eu sei que o medo e a razão têm sua função / Encontrei caminhos para aliviar a dor.", author: "Yago O Próprio", song: "Fora do Tom" },
-        { text: "Seguindo o meu caminho / Olhando o horizonte / Me sinto bem melhor que ontem.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
-        { text: "E é que eu já não acreditava / Que podia mudar / Achando que já não tinha nada pra reverter / Mas o vento que soprou / Chegou pra me relatar / Que o que dói machuca e passa / E serve para aprender.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
-        { text: "Nem quero saber que horas são se eu me encontrar, peço perdão.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
-        { text: "São tantas coisas que eu já passei / Fico tranquilo que eu sou só mais um.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
-        { text: "Eles voltam pra dizer que eu fico sempre distante / Mas na realidade, é que eu nunca te vi por perto.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
-        { text: "Vocês voltam pra entender tudo que eu escrevi antes / São todos meus segredos na capa do seu caderno / O que minha alma vivencia, meus casos de agonia.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
-        { text: "E quanto mais o tempo passa eu me confundo / Eu grito alto e o desespero deixa mudo / Mas se eu pudesse congelar o tempo / Eu evitava tudo / Poder parar o segundo.", author: "Yago O Próprio", song: "Modus Operandi" },
-        { text: "Eu não mereço todas dores desse mundo / Se eu me confundo, num segundo eu perco tudo.", author: "Yago O Próprio", song: "Modus Operandi" },
-        { text: "Eu mato, eu passo, eu quebro, eu chuto eu vandalizo os obstáculos que me impedem poder te ver passar / Eu rasgo, eu cuspo, espanco, escarro deixo a sola do sapato em quem tentar te atrasar, meu bem.", author: "Yago O Próprio", song: "Papoulas" },
-        { text: "Sois mais que primaveras / Papoulas flores belas efeito alucinógeno incomum / Você invade as minhas artérias / Torna as feridas belas / Me apresentando a visão do seu mundo.", author: "Yago O Próprio", song: "Papoulas" },
-        { text: "Eu procurei não achei respostas / Decifrando o jeito que cê veio incomum / A tua postura tão proposta / Cativou no peito e eu não quero mais jejum.", author: "Yago O Próprio", song: "Papoulas" },
-        { text: "Meu bem / Diz quando você volta / Já faz algum tempo que eu te quero assim, demais / Cê sabe eu chamo na responsa.", author: "Yago O Próprio", song: "Papoulas" },
-        { text: "E eu ficando bolado com tudo / De tudo que eu não teria que fazer / Se a cada metrô que eu pegasse / Eu não deixasse meu rango do mês.", author: "Yago O Próprio", song: "Linha Azul" },
-        { text: "Pudesse me locomover sem ter me deixado espremer / São 4 conto de passagem parece miragem o que eu falo.", author: "Yago O Próprio", song: "Linha Azul" },
+        { text: "Eu tô precisando de mim, perdi o contato / Se cê me encontrar, tô me esperando ali na frente.", author: "Yago Oproprio", song: "La Noche" },
+        { text: "Me descobrindo no correr desses segundos / Tão requintado porque eu sou tão vagabundo.", author: "Yago Oproprio", song: "La Noche" },
+        { text: "Honro as minha fita, ninguém tem nada com isso / E se o caminho foi do vício, eu precisava porque eu tava muito louco.", author: "Yago Oproprio", song: "La Noche" },
+        { text: "Penso na desculpa / Antes pra me ausentar da culpa / Sem entender a solução.", author: "Yago Oproprio", song: "Inofensiva" },
+        { text: "Porque eu consigo disfarçar / E até justificar para mim mesmo a semblante do olho meu.", author: "Yago Oproprio", song: "Inofensiva" },
+        { text: "E eu já tô melhor já faz um tempo nunca foi coisa de momento.", author: "Yago Oproprio", song: "Inofensiva" },
+        { text: "Falou que até parou, mas não se libertou / Achou que já tava tudo bem / Inofensiva, mas te dominou.", author: "Yago Oproprio", song: "Inofensiva" },
+        { text: "Parece que todos domingos são banais / Se não olhamos as coisas se tornam fatais.", author: "Yago Oproprio", song: "Catedrais" },
+        { text: "Se segredo eu for te contar / Eu posso me contradizer / Se o medo me paralisar / Não posso me submeter.", author: "Yago Oproprio", song: "Catedrais" },
+        { text: "Vou juntando meus pedaços pra saber quem sou / Distribuindo meus retalhos por aí.", author: "Yago Oproprio", song: "Fora do Tom" },
+        { text: "Errei caminhos, você sabe como é / Cheguei tão perto pra me ver partir.", author: "Yago Oproprio", song: "Fora do Tom" },
+        { text: "Nada do que foi vai voltar / E o ponteiro do relógio serve pra não esquecer / Que na vida tudo passa, a dor, a paz, a graça", author: "Yago Oproprio", song: "Melhor que Ontem" },
+        { text: "Eu sei que o medo e a razão têm sua função / Encontrei caminhos para aliviar a dor.", author: "Yago Oproprio", song: "Fora do Tom" },
+        { text: "Seguindo o meu caminho / Olhando o horizonte / Me sinto bem melhor que ontem.", author: "Yago Oproprio", song: "Melhor Que Ontem" },
+        { text: "E é que eu já não acreditava / Que podia mudar / Achando que já não tinha nada pra reverter / Mas o vento que soprou / Chegou pra me relatar / Que o que dói machuca e passa / E serve para aprender.", author: "Yago Oproprio", song: "Melhor Que Ontem" },
+        { text: "Nem quero saber que horas são se eu me encontrar, peço perdão.", author: "Yago Oproprio", song: "Melhor Que Ontem" },
+        { text: "São tantas coisas que eu já passei / Fico tranquilo que eu sou só mais um.", author: "Yago Oproprio", song: "Melhor Que Ontem" },
+        { text: "Eles voltam pra dizer que eu fico sempre distante / Mas na realidade, é que eu nunca te vi por perto.", author: "Yago Oproprio", song: "Melhor Que Ontem" },
+        { text: "Vocês voltam pra entender tudo que eu escrevi antes / São todos meus segredos na capa do seu caderno / O que minha alma vivencia, meus casos de agonia.", author: "Yago Oproprio", song: "Melhor Que Ontem" },
+        { text: "E quanto mais o tempo passa eu me confundo / Eu grito alto e o desespero deixa mudo / Mas se eu pudesse congelar o tempo / Eu evitava tudo / Poder parar o segundo.", author: "Yago Oproprio", song: "Modus Operandi" },
+        { text: "Eu não mereço todas dores desse mundo / Se eu me confundo, num segundo eu perco tudo.", author: "Yago Oproprio", song: "Modus Operandi" },
+        { text: "Eu mato, eu passo, eu quebro, eu chuto eu vandalizo os obstáculos que me impedem poder te ver passar / Eu rasgo, eu cuspo, espanco, escarro deixo a sola do sapato em quem tentar te atrasar, meu bem.", author: "Yago Oproprio", song: "Papoulas" },
+        { text: "Sois mais que primaveras / Papoulas flores belas efeito alucinógeno incomum / Você invade as minhas artérias / Torna as feridas belas / Me apresentando a visão do seu mundo.", author: "Yago Oproprio", song: "Papoulas" },
+        { text: "Eu procurei não achei respostas / Decifrando o jeito que cê veio incomum / A tua postura tão proposta / Cativou no peito e eu não quero mais jejum.", author: "Yago Oproprio", song: "Papoulas" },
+        { text: "Meu bem / Diz quando você volta / Já faz algum tempo que eu te quero assim, demais / Cê sabe eu chamo na responsa.", author: "Yago Oproprio", song: "Papoulas" },
+        { text: "E eu ficando bolado com tudo / De tudo que eu não teria que fazer / Se a cada metrô que eu pegasse / Eu não deixasse meu rango do mês.", author: "Yago Oproprio", song: "Linha Azul" },
+        { text: "Pudesse me locomover sem ter me deixado espremer / São 4 conto de passagem parece miragem o que eu falo.", author: "Yago Oproprio", song: "Linha Azul" },
         { text: "Impossível de adestrar esse amor vira lata", author: "Djonga", song: "Leal"},
         { text: "Mas o que me mata é tão pequeno, olha o tamanho de uma bala", author: "Djonga", song: "Deus e o Diabo na Terra do Sol"},
         { text: "E agora ninguém vai chorar meu choro, mas até quem eu não conheço quer sorrir o meu sorriso", author: "Djonga", song: "Junho de 1994"},
@@ -137,23 +152,24 @@
         const quoteElement = document.getElementById('quote');
         const authorElement = document.getElementById('author');
         const songNameElement = document.getElementById('song-name');
+        const addQuoteButton = document.getElementById('add-quote-button'); 
 
         function generateRandomQuote() {
             const randomIndex = Math.floor(Math.random() * quotes.length);
             const randomQuote = quotes[randomIndex];
             const randomColorIndex = Math.floor(Math.random() * colors.length);
             const randomColor = colors[randomColorIndex]; // Seleciona uma cor aleatória
-
             quoteElement.textContent = '"' + randomQuote.text + '"';
             authorElement.textContent = "- " + randomQuote.author;
             songNameElement.textContent = randomQuote.song;
 
-            // Altera a cor de fundo e a cor do texto
             document.body.style.backgroundColor = randomColor.color;
             quoteElement.style.color = randomColor.textColor;
             authorElement.style.color = randomColor.textColor;
             songNameElement.style.color = randomColor.textColor;
         }
+
+        addQuoteButton.addEventListener('click', generateRandomQuote);
 
         // Initial quote generation
         generateRandomQuote();
