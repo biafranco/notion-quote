@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Quote Generator</title>
     <style>
-      body {
+        body {
             font-family: Calibri, Arial, sans-serif;
             text-align: center;
-            background-color: #FFDEAD;
             margin: 0;
             padding: 0;
+            transition: background-color 1s ease; /* Transição suave para as mudanças de cor */
         }
         #quote {
             margin-top: 10px;
@@ -21,80 +21,135 @@
             font-weight: bold;
             margin-top: 20px;
         }
+        #song {
+            font-size: 18px;
+            margin-top: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .icon {
+            margin-right: 5px; /* Espaço entre o ícone e o nome da música */
+        }
     </style>
 </head>
 <body>
     <div id="quote"></div>
     <div id="author"></div>
+    <div id="song">
+        <span class="icon">🎧</span> <!-- Ícone de headphone -->
+        <span id="song-name"></span>
+    </div>
 
     <script>
-        const quotes = [
-            { text: "I have dreamed and dreamed myself to life. And back again.", author: "Joan Murray" },
-            { text: "If you have been brutally broken, but still have the courage to be gentle to others then you deserve a love deeper than the ocean itself.", author: "Nikita Gill" },
-            { text: "And you wish to be a poet; and you wish to be a lover.", author: "Virginia Wolf" },
-            { text: "I dream of you in colours that don't exist", author: "" },
-            { text: "I dream that in some other life we are still together.", author: "CMustonen" },
-            { text: "Nights filled with worship, holding each other like a prayer unspoken.", author: "Nikita Gill" },
-            { text: "I hope you are loved in the way you deserve.", author: "Nikita Gill" },
-            { text: "The universe created you for a reason, now go out there and find out what it is.", author: "Nikita Gill" },
-            { text: "You have turned your heart into a museum of people you've loved to keep them alive inside you.", author: "Nikita Gill" },
-            { text: "Not all girls are made of sugar and spice and all things nice. Some are made of witchcraft and wolf and a little bit of vice.", author: "Nikita Gill" },
-            { text: "Whose life am I living? Whose life am I failing to live?", author: "Margaret Atwood" },
-            { text: "I'm not sure which is worse: intense feeling, or the absence of it.", author: "Margaret Atwood" },
-            { text: "You are so afraid of rejection that you push away anyone who you grow any fondness for. And it keeps you lonely, but at least there's consistency.", author: "Sue Zhao" },
-            { text: "How do you mourn the loss of a love you never spoke out loud never felt with your own two hands?", author: "shelby eileen" },
-            { text: "How can something be there, and then not be there? How do we forgive ourselves for all the things we did not become?", author: "david 'doc' luben" },
-            { text: "In the dark times, will there also be singing? Yes, there will be singing. About the dark times.", author: "" },
-            { text: "I took a deep breath and listened to the old brag of my heart. I am, I am, I am.", author: "Sylvia Plath" },
-            { text: "If I lived by the sea I would never be really sad. I get an immense sense of eternity and peace from the ocean. I can lose myself in staring at it hour after hour.", author: "Sylvia Plath" },
-            { text: "And there was no dance, no holy place from which we were absent.", author: "Sappho" },
-            { text: "So what's the alternative? Feel nothing at all? Never love again? Without love, what is there?", author: "O. Leary" },
-            { text: "I wish I had a map of my mind so I could find a way through my thoughts without always getting lost in fields of daydreams.", author: "Kristen Costello" },
-            { text: "Beware that, when fighting monsters, you yourself do not become a monster... for when you gaze long into the abyss. The abyss gazes also into you.", author: "Friedrich Nietzsche" },
-            { text: "I wish I were a girl again, half savage and hardy, and free; and laughing at injuries, not maddening under them! Why am I so changed?", author: "Emily Bronte" },
-            { text: "i write you into every universe that i create and in each one you are full of some kind of light", author: "" },
-            { text: "I have never rested, always run, run so fast that the sun can't make a shadow. Well, here I am - mid-way, lost in a dark wood - this selva oscura, without a torch, a guide, or even a bird.", author: "Jeanette Winterson" },
-            { text: "i contradict myself. i am large... i contain multitudes", author: "Walt Whitman" },
-            { text: "I am going to make a very beautiful life for myself no matter what it takes.", author: "" },
-            { text: "The connections between and among women are the most feared, the most problematic, and the most potentially transforming force on the planet.", author: "Adrienne Rich" },
-            { text: "There is no faith in a man. Not even in a brother, so girls if you must love, Love One Another.", author: "" },
-            { text: "there are just some songs that make you cry because they sound like endings", author: "" },
-            { text: "...I am an echo of what I was.", author: "Anne Ridler" },
-            { text: "I act and react, and suddenly I wonder 'Where is the girl that I was last year? ... Two years ago? … What would she think of me now?'", author: "" },
-            { text: "I always feel sad for the girl that I was.", author: "" },
-            { text: "The mind is its own place, and in itself can make a heaven of hell, a hell of heaven.", author: "John Milton" },
-            { text: "Another belief of mine: that everyone else my age is an adult, whereas I am merely in disguise.", author: "Margaret Atwood" },
-            { text: "This is not enough, this is not enough to prove it yet No, I need to hit the bottom.", author: "" },
-            { text: "I am too young and I've loved you too much.", author: "Fyodor Dostoyevsky" },
-            { text: "I am heartbroken over no one, over having nobody to wish for, nobody to hope for.", author: "" },
-            { text: "I am being eaten away by light.", author: "" },
-            { text: "The wound is the place where the Light enters you.", author: "" },
-            { text: "if there is a light then i am going to swallow it. if there is a god then i'm going to make him cry.", author: "" },
-            { text: "Tell me every terrible thing you ever did, and let me love you anyway.", author: "" },
-            { text: "When is a monster not a monster? Oh, when you love it.", author: "" },
-            { text: "There is a crack in everything. That's how the light gets in.", author: "" },
-            { text: "PYLADES: I'll take care of you. ORESTES: It's rotten work. PYLADES: Not to me. Not if it's you.", author: "" },
-            { text: "I just want someone to grab my little face and scream 'ON PURPOSE, ON PURPOSE I AM GOING TO CARE ABOUT YOU'", author: "Jenny Slate" },
-            { text: "That's the choice. I love him, with all that, because of all that. On purpose. I love him on purpose.", author: "Casey McQuiston" },
-            { text: "I'm homesick for myself. In place of home is a face I no longer recognise", author: "" },
-            { text: "When I imagine myself I am barely there.", author: "" },
-            { text: "And during the night, when all lovers are asleep, we're awake, kissing.", author: "James Andrew Crosby." },
-            { text: "I am young, and unspoilt and in love, Full of terror, and prayer, and yearning.", author: "" },
-            { text: "I did violence to my own heart;", author: "" },
-            { text: "God, god, god, I need love, I need it, I need it.", author: "" },
-            { text: "Do I contradict myself? Very well then... I contradict myself; I am large... I contain multitudes.", author: "" },
-            { text: "Why does tragedy exist? Because you are full of rage. Why are you full of rage? Because you are full of grief.", author: "" }
-            
+    const quotes = [
+        { text: "Não tenha medo do pior / Eu sei que tudo vai mudar / Você vai transformar / O mundo ao seu redor", author: "Emicida", song: "Muleque de Vila" },
+        { text: "É louco vê que tempo já não tem tanto valor / A vida me ensinou que ele / Que constrói o amor", author: "Marechal", song: "Viagem" },
+        { text: "O grafite na parede já defende algum direito, daquele jeito / Assim que é tem que por fé, não de ré / Bota fé no que é, não nos mané", author: "Sabotage", song: "Rap é Compromisso" },
+        { text: "Você não percebeu que você é o único representante do seu sonho na face da Terra?", author: "Emicida", song: "Levanta e Anda" },
+        { text: "Querem competir com o melhor e não querem ser freguês", author: "Djonga", song: "Corre das Notas" },
+        { text: "Eu tô precisando de mim, perdi o contato / Se cê me encontrar, tô me esperando ali na frente.", author: "Yago O Próprio", song: "La Noche" },
+        { text: "Me descobrindo no correr desses segundos / Tão requintado porque eu sou tão vagabundo.", author: "Yago O Próprio", song: "La Noche" },
+        { text: "Honro as minha fita, ninguém tem nada com isso / E se o caminho foi do vício, eu precisava porque eu tava muito louco.", author: "Yago O Próprio", song: "La Noche" },
+        { text: "Penso na desculpa / Antes pra me ausentar da culpa / Sem entender a solução.", author: "Yago O Próprio", song: "Inofensiva" },
+        { text: "Porque eu consigo disfarçar / E até justificar para mim mesmo a semblante do olho meu.", author: "Yago O Próprio", song: "Inofensiva" },
+        { text: "E eu já tô melhor já faz um tempo nunca foi coisa de momento.", author: "Yago O Próprio", song: "Inofensiva" },
+        { text: "Falou que até parou, mas não se libertou / Achou que já tava tudo bem / Inofensiva, mas te dominou.", author: "Yago O Próprio", song: "Inofensiva" },
+        { text: "Parece que todos domingos são banais / Se não olhamos as coisas se tornam fatais.", author: "Yago O Próprio", song: "Catedrais" },
+        { text: "Se segredo eu for te contar / Eu posso me contradizer / Se o medo me paralisar / Não posso me submeter.", author: "Yago O Próprio", song: "Catedrais" },
+        { text: "Vou juntando meus pedaços pra saber quem sou / Distribuindo meus retalhos por aí.", author: "Yago O Próprio", song: "Fora do Tom" },
+        { text: "Errei caminhos, você sabe como é / Cheguei tão perto pra me ver partir.", author: "Yago O Próprio", song: "Fora do Tom" },
+        { text: "Nada do que foi vai voltar / E o ponteiro do relógio serve pra não esquecer / Que na vida tudo passa, a dor, a paz, a graça", author: "Yago O Próprio", song: "Melhor que Ontem" },
+        { text: "Eu sei que o medo e a razão têm sua função / Encontrei caminhos para aliviar a dor.", author: "Yago O Próprio", song: "Fora do Tom" },
+        { text: "Seguindo o meu caminho / Olhando o horizonte / Me sinto bem melhor que ontem.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
+        { text: "E é que eu já não acreditava / Que podia mudar / Achando que já não tinha nada pra reverter / Mas o vento que soprou / Chegou pra me relatar / Que o que dói machuca e passa / E serve para aprender.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
+        { text: "Nem quero saber que horas são se eu me encontrar, peço perdão.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
+        { text: "São tantas coisas que eu já passei / Fico tranquilo que eu sou só mais um.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
+        { text: "Eles voltam pra dizer que eu fico sempre distante / Mas na realidade, é que eu nunca te vi por perto.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
+        { text: "Vocês voltam pra entender tudo que eu escrevi antes / São todos meus segredos na capa do seu caderno / O que minha alma vivencia, meus casos de agonia.", author: "Yago O Próprio", song: "Melhor Que Ontem" },
+        { text: "E quanto mais o tempo passa eu me confundo / Eu grito alto e o desespero deixa mudo / Mas se eu pudesse congelar o tempo / Eu evitava tudo / Poder parar o segundo.", author: "Yago O Próprio", song: "Modus Operandi" },
+        { text: "Eu não mereço todas dores desse mundo / Se eu me confundo, num segundo eu perco tudo.", author: "Yago O Próprio", song: "Modus Operandi" },
+        { text: "Eu mato, eu passo, eu quebro, eu chuto eu vandalizo os obstáculos que me impedem poder te ver passar / Eu rasgo, eu cuspo, espanco, escarro deixo a sola do sapato em quem tentar te atrasar, meu bem.", author: "Yago O Próprio", song: "Papoulas" },
+        { text: "Sois mais que primaveras / Papoulas flores belas efeito alucinógeno incomum / Você invade as minhas artérias / Torna as feridas belas / Me apresentando a visão do seu mundo.", author: "Yago O Próprio", song: "Papoulas" },
+        { text: "Eu procurei não achei respostas / Decifrando o jeito que cê veio incomum / A tua postura tão proposta / Cativou no peito e eu não quero mais jejum.", author: "Yago O Próprio", song: "Papoulas" },
+        { text: "Meu bem / Diz quando você volta / Já faz algum tempo que eu te quero assim, demais / Cê sabe eu chamo na responsa.", author: "Yago O Próprio", song: "Papoulas" },
+        { text: "E eu ficando bolado com tudo / De tudo que eu não teria que fazer / Se a cada metrô que eu pegasse / Eu não deixasse meu rango do mês.", author: "Yago O Próprio", song: "Linha Azul" },
+        { text: "Pudesse me locomover sem ter me deixado espremer / São 4 conto de passagem parece miragem o que eu falo.", author: "Yago O Próprio", song: "Linha Azul" },
+        { text: "Impossível de adestrar esse amor vira lata", author: "Djonga", song: "Leal"},
+        { text: "Mas o que me mata é tão pequeno, olha o tamanho de uma bala", author: "Djonga", song: "Deus e o Diabo na Terra do Sol"},
+        { text: "E agora ninguém vai chorar meu choro, mas até quem eu não conheço quer sorrir o meu sorriso", author: "Djonga", song: "Junho de 1994"},
+        { text: "Mente fria, sangue quente", author: "Djonga", song: "Hat-Trick"},
+        { text: "Meu melhor verso só serve se mudar vidas", author: "Djonga", song: "Ladrão"},
+        { text: "Falsos profetas vão te rodear e quando souberem que você se ama, eles vão começar a te odiar", author: "Djonga", song: "O Cara de Óculos"},
+        { text: "Quando a luz apaga e a cortina fecha / A porta tranca e a máscara cai", author: "Pecaos", song: "Porradão de Muay Thai" },
+        { text: "Esperança é a última que morre / Se o suor escorre, se adianta", author: "Pecaos", song: "Porradão de Muay Thai" },
+        { text: "Da mesma varanda, mudou a paisagem / Ao ver da paisagem, mudou-se a varanda", author: "Pecaos", song: "Porradão de Muay Thai" },
+        { text: "Abraçar o inevitável é uma arte / Esse frio na barriga é o alarme", author: "Pecaos", song: "Porradão de Muay Thai" },
+        { text: "Mostra pra esses cu como é que faz / Louco / O mundo oferece pouco / Sucesso e sossego palavras rivais", author: "Pecaos", song: "Boom Boom Bap" },
+        { text: "Nóis precisa ser bem mais / Bem mais memo, não perco tempo / Nem jogo palavras ao vento", author: "Pecaos", song: "Boom Boom Bap" },
+        { text: "Um péssimo exemplo / Mas nunca isento / Me concentro / Porque aqui dentro quase tudo me distrai", author: "Pecaos", song: "Boom Boom Bap" },
+        { text: "Não se perca no personagem volte a realidade / A vida já foi covarde, não seja mais um", author: "Pecaos", song: "Você Não é Mais Criança" },
+        { text: "Mano, você não é mais criança / Agora suas escolhas pesam mais na balança", author: "Pecaos", song: "Você Não é Mais Criança" },
+        { text: "Foi incorrespondido sua vida inteira / Por qual motivo achou que seria de outra maneira?", author: "Pecaos", song: "Você Não é Mais Criança" },
+        { text: "Abandonei a hipnose, porque eu preciso libertar e não criar novos fantoches", author: "Froid", song: "Lamentável, Pt. III"},
+        { text: "Perdido é pouco pra quem tá no mundo pra fugir", author: "Froid", song: "Lamentável, Pt. III"},
+        { text: "Coisas que magoam deixa a gente firme. A gente só atinge a gente mesmo, enfim", author: "Froid", song: "Tiffany"},
+        { text: "O bagulho é que o sonho é de quem busca, e quem se nega à verdade é quem mais se frustra", author: "Froid", song: "Sou Alaska"},
+        { text: "Pro mau aluno, nenhum professor é bom, o ouvinte é quem é que tem que ter o dom", author: "Froid", song: "Sou Alaska"},
+        { text: "Sou o mesmo como uma nova roupagem, agora tem uns meses que eu não falo bobagem", author: "Froid", song: "Vem Tranquilo"},
+        { text: "Falta essa pureza quando eu vejo que a gente não é mais o mesmo. Hoje somos mais do mesmo", author: "Froid", song: "Vem Tranquilo"},
+        { text: "Machuquei meu tempo consertando erros, hoje eu prefiro mais os meus defeitos", author: "Froid", song: "Vem Tranquilo"},
+        { text: "O futuro terá cura, o futuro é literatura, escolástica, matemática, é mágica pura", author: "Froid", song: "Pseudosocial"},
+        { text: "Seus olhos vão arder, são muitos anos na caverna", author: "Froid", song: "Pseudosocial"},
+        { text: "Sarcasmo é minha doença e minha arma contra a tirania", author: "Froid", song: "A Pior Música do Ano"},
+        { text: "Alguns de nós achados e alguns de nós perdidos, e a chave do mistério são enigmas em livros", author: "Froid", song: "A Pior Música do Ano"},
+        { text: "Vocês tentaram me apagar e eu apaguei vocês, quiseram me cansar e eu me cansei d’ocês", author: "Froid", song: "A Pior Música do Ano"},
+        { text: "Condenado pelo passado, não. Teu maior erro foi não olhar pra frente.", author: "Sant", song: "Pertence ao crime"},
+        { text: "Ser humano é frágil igual cerol, com algumas linhas vira arma", author: "Sant", song: "AQL SLV"},
+        { text: "Oh, às vezes eu falo com a vida / Complicada quando tá naqueles dias / E ainda assim se mantém linda", author: "Sant", song: "Ensaio Sobre a Lucidez"},
+        { text: "Viver pouco como um rei ou muito como um Zé?", author: "Racionais MC's", song: "Vida Loka, Pt. 2"},
+        { text: "Se meu futuro estiver traçado, eu vou até o fim só pra ver o resultado, quero dinheiro e uma vida melhor antes que meu castelo se transforme em pó", author: "Racionais MC's", song: "Crime Vai e Vem"},
+        { text: "Tenha fé, porque até no lixão nasce flor.", author: "Racionais MC's", song: "Vida Loka, Pt. 1"},
+        { text: "Deixa eu fala procê: tudo, tudo, tudo vai, tudo é fase irmão", author: "Racionais MC's", song: "Vida Loka, Pt. 2"},
+        { text: "O caminho da felicidade ainda existe, é uma trilha estreita em meio à selva triste", author: "Racionais MC's", song: "Vida Loka, Pt. 2"},
+        { text: "Não espere o futuro mudar sua vida, porque o futuro será a consequência do presente", author: "Racionais MC's", song: "A Vida É Desafio"},
+        { text: "Acerto o meu desafeto, o sangue espirra até o teto. Ao vivo e direto, o caminho mais curto entre dois pontos é o papo reto", author: "Black Alien", song: "Sua Cara Encontra a Mão" },
+        { text: "Tirar foto é fácil, quero ver quem se retrata", author: "Black Alien", song: "Babylon by Gus" },
+        { text: "Minha voz é o instrumento que dá sustento, ao microfone o espírito dos novos tempos", author: "Black Alien", song: "Babylon by Gus" },
+        { text: "Voltem com seus barcos para o cais, previsão do tempo: tempestades sinistras e temporais. Porém vai em frente, faz. O que tu queres é tudo dali, eu sei, navego a trinta e dois natais", author: "Black Alien", song: "Na Segunda Vinda" },
+        { text: "Tem fogo no céu da cidade, não são fogos-de-artifício. É bom me ouvir, melhor não me subestimar pelo meu tamanho, cara, raça ou vício", author: "Black Alien", song: "América 21" },
+        { text: "Se liga no relato, mulato. Não queimo mais a casa para me livrar do rato", author: "Black Alien", song: "Caminhos do Destino" },
+        { text: "Telas grandes nos seus lares, pequenas nos seus celulares. Através delas vejo tudo ir pelos ares", author: "Black Alien", song: "Umaextrapunkprumextrafunk" },
+        { text: "Não há senso de humor sobre isso / Você e seu caráter submisso e omisso / Mancham de sangue o salão onde eu piso e por isso", author: "Black Alien", song: "U-informe"},
+        { text: "Os eclipses somos nós / Toda nua, em toda rua eu ouço a sua voz / Insônia na casa de ópio / O amor mais verdadeiro que eu vou ter nesse mundo / É o amor próprio", author: "Black Alien", song: "Au Revoir"}
+];
+
+        const colors = [
+            { color: "#fbd320", textColor: "#000" }, // Amarelo com texto preto
+            { color: "#20933e", textColor: "#000" }, // Verde com texto preto
+            { color: "#253982", textColor: "#fff" }, // Azul com texto branco
+            { color: "#dd0415", textColor: "#fff" }  // Vermelho com texto branco
         ];
 
         const quoteElement = document.getElementById('quote');
         const authorElement = document.getElementById('author');
+        const songNameElement = document.getElementById('song-name');
 
         function generateRandomQuote() {
             const randomIndex = Math.floor(Math.random() * quotes.length);
             const randomQuote = quotes[randomIndex];
+            const randomColorIndex = Math.floor(Math.random() * colors.length);
+            const randomColor = colors[randomColorIndex]; // Seleciona uma cor aleatória
+
             quoteElement.textContent = '"' + randomQuote.text + '"';
             authorElement.textContent = "- " + randomQuote.author;
+            songNameElement.textContent = randomQuote.song;
+
+            // Altera a cor de fundo e a cor do texto
+            document.body.style.backgroundColor = randomColor.color;
+            quoteElement.style.color = randomColor.textColor;
+            authorElement.style.color = randomColor.textColor;
+            songNameElement.style.color = randomColor.textColor;
         }
 
         // Initial quote generation
