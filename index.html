@@ -32,19 +32,21 @@
         }
 
         #add-quote-button {
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #253982; 
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        }
-
-        #add-quote-button:hover {
-        background-color: #1d2d6c; 
-        }
+        position: fixed; 
+        top: 10px; 
+        right: 10px; 
+        width: 50px; 
+        height: 50px; 
+        font-size: 30px; 
+        line-height: 50px;
+        text-align: center; 
+        background-color: black; 
+        color: #fff; 
+        border: none; 
+        cursor: pointer; 
+        transition: background-color 0.3s ease; 
+        border-radius: 50%; 
+}
     </style>
 </head>
 <body>
@@ -54,7 +56,7 @@
         <span class="icon">🎧</span> 
         <span id="song-name"></span>
     </div>
-    <button id="add-quote-button">Add</button> 
+    <button id="add-quote-button">+</button> 
 
     <script>
     const quotes = [
